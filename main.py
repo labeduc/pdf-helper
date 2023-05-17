@@ -10,6 +10,8 @@ from langchain import OpenAI
 from dotenv import load_dotenv
 import os
 
+import uvicorn
+
 load_dotenv()
 
 app = FastAPI()
@@ -71,3 +73,7 @@ async def process_form(
 
     pergunta = f"Texto: {texto}<br>Arquivo: {arquivo.filename}"
     return templates.TemplateResponse("form.html", {"request": request, "pergunta": pergunta, "resposta": response})
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)
